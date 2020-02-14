@@ -23,6 +23,28 @@ import { CasbinService } from "./casbin.service";
 @Module({})
 export class CasbinTypeormModule {
 
+  static forRoot(options: CasbinTypeormModuleOptions): DynamicModule {
+    const casbinTypeormModuleOptions = {
+      provide: CASBIN_ENFORCER,
+      useValue: options,
+    };
+    const casbinEnforcerProvider: Provider = {
+      provide: CASBIN_ENFORCER,
+      useFactory: async () =>
+          await this.createEnforcerFactory(options)
+      ,
+    };
+    return {
+      module: CasbinTypeormModule,
+      providers: [
+        casbinEnforcerProvider,
+        CasbinService,
+        casbinTypeormModuleOptions
+      ],
+      exports: [casbinEnforcerProvider, CasbinService]
+    };
+  }
+
   static forRootAsync(options: CasbinTypeormModuleAsyncOptions): DynamicModule {
     const casbinEnforcerProvider: Provider = {
       provide: CASBIN_ENFORCER,
