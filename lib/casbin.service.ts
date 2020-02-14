@@ -4,7 +4,6 @@ import { CASBIN_ENFORCER } from "./casbin.constants";
 
 @Injectable()
 export class CasbinService {
-  // tslint:disable-next-line:no-empty
   constructor(@Inject(CASBIN_ENFORCER) private readonly enforcer: Enforcer) {}
 
   public async reloadPolicy() {
