@@ -16,7 +16,7 @@ In `YOUR_PROJECT_ROOT/src/app.module.ts` file:
 import { Module } from "@nestjs/common";
 import { AppController } from "./app.controller";
 import { AppService } from "./app.service";
-import { CasbinTypeormModule } from "@pardjs/nest-casbin";
+import { CasbinTypeormModule } from "nestjs-casbin-typeorm";
 
 @Module({
   imports: [
@@ -48,11 +48,10 @@ import { CASBIN_ENFORCER, CasbinService } from "@pardjs/nest-casbin";
 @Injectable()
 export class AppService {
   constructor(
-    @Inject(CASBIN_ENFORCER) private readonly enforcer: Enforcer,
     private readonly casbinService: CasbinService
   ) {}
 
-  getHello(): string {
+  checkPermission(): boolean {
     return this.casbinService.checkPermission("alice", "data1", "read");
   }
 }
