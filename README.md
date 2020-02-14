@@ -1,6 +1,12 @@
-# nest-casbin
-
-Make magic with [Nest.js](https://github.com/nestjs/nest), [Casbin](https://github.com/casbin/casbin) and [TypeORM](https://github.com/typeorm/typeorm).
+<h1 align="center">
+NestJs Casbin TypeORM
+</h1>
+  
+<p align="center">
+  NestJS module for Casbin using the TypeORM Adapter
+</p>
+    <p align="center">
+</p>
 
 ## Example
 
@@ -10,11 +16,11 @@ In `YOUR_PROJECT_ROOT/src/app.module.ts` file:
 import { Module } from "@nestjs/common";
 import { AppController } from "./app.controller";
 import { AppService } from "./app.service";
-import { CasbinModule } from "@pardjs/nest-casbin";
+import { CasbinTypeormModule } from "@pardjs/nest-casbin";
 
 @Module({
   imports: [
-    CasbinModule.forRootAsync(
+    CasbinTypeormModule.forRootAsync(
       {
         type: "mysql",
         host: "localhost",
