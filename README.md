@@ -56,3 +56,7 @@ export class AppService {
   }
 }
 ```
+
+## License
+
+  This project is [MIT licensed](LICENSE).
