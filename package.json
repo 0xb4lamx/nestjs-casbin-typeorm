@@ -18,7 +18,8 @@
     "test": "jest --passWithNoTests",
     "lint": "eslint 'lib/**/*.ts' --fix",
     "prepublish:npm": "npm run build",
-    "publish:npm": "npm publish --access public"
+    "publish:npm": "npm publish --access public",
+    "prepare": "npm run build"
   },
   "engines": {
     "node": ">= 8.9.0"
