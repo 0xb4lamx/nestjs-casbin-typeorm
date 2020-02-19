@@ -44,6 +44,14 @@ export class CasbinService {
     return this.enforcer.getUsersForRole(name, domain);
   }
 
+  public async getRolesForUser(name: string, domain?: string): Promise<string[]> {
+    return this.enforcer.getRolesForUser(name, domain);
+  }
+
+  public async getImplicitRolesForUser(name: string, ...domain: string[]): Promise<string[]> {
+    return this.enforcer.getImplicitRolesForUser(name, ...domain);
+  }
+
   public async hasRoleForUser(user: string, role: string, domain?: string): Promise<boolean> {
     return this.enforcer.hasRoleForUser(user, role, domain);
   }
@@ -88,8 +96,12 @@ export class CasbinService {
     return this.enforcer.getPermissionsForUser(user);
   }
 
+  public async getImplicitPermissionsForUser(user: string, ...domain: string[]): Promise<string[][]> {
+    return this.enforcer.getImplicitPermissionsForUser(user, ...domain);
+  }
+
   public async hasPermissionForUser(user: string, ...permissions: string[]): Promise<boolean> {
-    return await this.enforcer.hasPermissionForUser(user, ...permissions);
+    return this.enforcer.hasPermissionForUser(user, ...permissions);
   }
 
   public async getAllActions(): Promise<string[]> {
@@ -97,11 +109,11 @@ export class CasbinService {
   }
 
   public async hasPolicy(...params: string[]): Promise<boolean> {
-    return await this.enforcer.hasPolicy(...params);
+    return this.enforcer.hasPolicy(...params);
   }
 
   public async hasNamedPolicy(p: string, ...params: string[]): Promise<boolean> {
-    return await this.enforcer.hasNamedPolicy(p, ...params);
+    return this.enforcer.hasNamedPolicy(p, ...params);
   }
 
   // TODO: edit this in adapter to make it query from database
