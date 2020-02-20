@@ -4,7 +4,7 @@
   "description": "NestJS Casbin module with TypeORM Adapter",
   "repository": {
     "type": "git",
-    "url": "https://github.com/pardjs/nest-casbin"
+    "url": "https://github.com/0xb4lamx/nestjs-casbin-typeorm"
   },
   "main": "dist/index.js",
   "keywords": [
