@@ -16,7 +16,7 @@
   "scripts": {
     "build": "rm -rf dist && tsc -p tsconfig.json",
     "test": "jest --passWithNoTests",
-    "lint": "eslint 'lib/**/*.ts' --fix",
+    "lint": "eslint 'src/**/*.ts' --fix",
     "prepublish:npm": "npm run build",
     "publish:npm": "npm publish --access public",
     "prepare": "npm run build"

@@ -17,7 +17,7 @@ import {
   CasbinTypeormModuleAsyncOptions,
   CasbinTypeormModuleOptions,
   CasbinTypeormOptionsFactory
-} from "./interfaces/casbin-options.interface";
+} from "./interfaces";
 import { CasbinService } from "./casbin.service";
 
 @Module({})
