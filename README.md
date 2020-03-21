@@ -40,7 +40,7 @@ import { CasbinTypeormModule } from "nestjs-casbin-typeorm";
 export class AppModule {}
 ```
 
-in ``YOUR_PROJECT_ROOT/src/app.service.ts` file:
+in `YOUR_PROJECT_ROOT/src/app.service.ts` file:
 
 ```typescript
 import { Injectable } from "@nestjs/common";
