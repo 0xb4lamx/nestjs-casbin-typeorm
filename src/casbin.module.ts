@@ -1,28 +1,19 @@
-import {
-  DynamicModule,
-  Module,
-  Provider,
-  Type
-} from "@nestjs/common";
-import {
-  Adapter,
-  Enforcer
-} from "casbin";
+import { DynamicModule, Module, Provider, Type } from "@nestjs/common";
+import { Adapter, Enforcer, newEnforcer } from "casbin";
 import TypeORMAdapter from "typeorm-adapter";
 import {
   CASBIN_ENFORCER,
-  CASBIN_TYPEORM_MODULE_OPTIONS
+  CASBIN_TYPEORM_MODULE_OPTIONS,
 } from "./casbin.constants";
 import {
   CasbinTypeormModuleAsyncOptions,
   CasbinTypeormModuleOptions,
-  CasbinTypeormOptionsFactory
+  CasbinTypeormOptionsFactory,
 } from "./interfaces";
 import { CasbinService } from "./casbin.service";
 
 @Module({})
 export class CasbinTypeormModule {
-
   static forRoot(options: CasbinTypeormModuleOptions): DynamicModule {
     const casbinTypeormModuleOptions = {
       provide: CASBIN_ENFORCER,
@@ -30,18 +21,16 @@ export class CasbinTypeormModule {
     };
     const casbinEnforcerProvider: Provider = {
       provide: CASBIN_ENFORCER,
-      useFactory: async () =>
-          await this.createEnforcerFactory(options)
-      ,
+      useFactory: async () => await this.createEnforcerFactory(options),
     };
     return {
       module: CasbinTypeormModule,
       providers: [
         casbinEnforcerProvider,
         CasbinService,
-        casbinTypeormModuleOptions
+        casbinTypeormModuleOptions,
       ],
-      exports: [casbinEnforcerProvider, CasbinService]
+      exports: [casbinEnforcerProvider, CasbinService],
     };
   }
 
@@ -49,32 +38,31 @@ export class CasbinTypeormModule {
     const casbinEnforcerProvider: Provider = {
       provide: CASBIN_ENFORCER,
       useFactory: async (casbinTypeormOptions: CasbinTypeormModuleOptions) => {
-        return await this.createEnforcerFactory(casbinTypeormOptions)
+        return await this.createEnforcerFactory(casbinTypeormOptions);
       },
-      inject: [CASBIN_TYPEORM_MODULE_OPTIONS]
+      inject: [CASBIN_TYPEORM_MODULE_OPTIONS],
     };
     const asyncProviders = this.createAsyncProviders(options);
     return {
       module: CasbinTypeormModule,
-      providers: [
-        ...asyncProviders,
-        casbinEnforcerProvider,
-        CasbinService
-      ],
-      exports: [casbinEnforcerProvider, CasbinService]
+      providers: [...asyncProviders, casbinEnforcerProvider, CasbinService],
+      exports: [casbinEnforcerProvider, CasbinService],
     };
   }
 
-  private static async createEnforcerFactory(casbinTypeormOptions: CasbinTypeormModuleOptions): Promise<Enforcer>{
-    const adapter = await TypeORMAdapter.newAdapter(casbinTypeormOptions.dbConnectionOptions);
-    const enforcer = await new Enforcer();
-    enforcer.initWithAdapter(casbinTypeormOptions.modelPath, (adapter as any) as Adapter);
+  private static async createEnforcerFactory(
+    casbinTypeormOptions: CasbinTypeormModuleOptions
+  ): Promise<Enforcer> {
+    const adapter = await TypeORMAdapter.newAdapter(
+      casbinTypeormOptions.dbConnectionOptions
+    );
+    const enforcer = await newEnforcer(casbinTypeormOptions.modelPath, adapter);
     await enforcer.loadPolicy();
     return enforcer;
   }
 
   private static createAsyncProviders(
-      options: CasbinTypeormModuleAsyncOptions,
+    options: CasbinTypeormModuleAsyncOptions
   ): Provider[] {
     if (options.useExisting || options.useFactory) {
       return [this.createAsyncOptionsProvider(options)];
@@ -90,7 +78,7 @@ export class CasbinTypeormModule {
   }
 
   private static createAsyncOptionsProvider(
-      options: CasbinTypeormModuleAsyncOptions,
+    options: CasbinTypeormModuleAsyncOptions
   ): Provider {
     if (options.useFactory) {
       return {
@@ -101,12 +89,14 @@ export class CasbinTypeormModule {
     }
     // `as Type<TypeOrmOptionsFactory>` is a workaround for microsoft/TypeScript#31603
     const inject = [
-      (options.useClass || options.useExisting) as Type<CasbinTypeormOptionsFactory>,
+      (options.useClass || options.useExisting) as Type<
+        CasbinTypeormOptionsFactory
+      >,
     ];
     return {
       provide: CASBIN_TYPEORM_MODULE_OPTIONS,
       useFactory: async (optionsFactory: CasbinTypeormOptionsFactory) =>
-          await optionsFactory.createCasbinTypeormOptions(),
+        await optionsFactory.createCasbinTypeormOptions(),
       inject,
     };
   }
