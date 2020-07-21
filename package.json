@@ -44,7 +44,7 @@
     "eslint-config-prettier": "6.10.0",
     "eslint-plugin-import": "2.20.1",
     "casbin": "^5.0.0",
-    "codecov": "^3.5.0",
+    "codecov": "^3.7.1",
     "cz-conventional-changelog": "^2.1.0",
     "jest": "^25.3.0",
     "ts-jest": "^25.3.1",
