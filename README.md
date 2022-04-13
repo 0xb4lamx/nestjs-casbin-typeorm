@@ -20,15 +20,17 @@ import { CasbinTypeormModule } from "nestjs-casbin-typeorm";
 
 @Module({
   imports: [
-    CasbinTypeormModule.forRootAsync(
-      {
+    CasbinTypeormModule.forRootAsync({
+      imports: [ConfigModule],
+      inject: [ConfigService],
+      useFactory: async (configService: ConfigService) => ({
           dbConnectionOptions: { // typeORM connectionOptions
               type: 'mysql',
-              host: 'MYSQL_HOST',
-              port: 'MYSQL_PORT',
-              username: 'MYSQL_USERNAME',
-              password: 'MYSQL_PASSWORD',
-              database: 'MYSQL_DATABASE',
+              host: configService.get<string>('MYSQL_HOST'),
+              port: configService.get<string>('MYSQL_PORT'),
+              username: configService.get<string>('MYSQL_USERNAME'),
+              password: configService.get<string>('MYSQL_PASSWORD'),
+              database: configService.get<string>('MYSQL_DATABASE'),
           },
           modelPath: "src/model/roles.conf"
        }
