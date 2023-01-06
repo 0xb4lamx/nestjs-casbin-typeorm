@@ -33,7 +33,7 @@
   },
   "devDependencies": {
     "@nestjs/common": "^7.6.11",
-    "@nestjs/schematics": "^7.0.0",
+    "@nestjs/schematics": "^7.3.1",
     "@nestjs/testing": "^7.0.0",
     "@types/jest": "^25.2.1",
     "@types/node": "^12.7.5",
