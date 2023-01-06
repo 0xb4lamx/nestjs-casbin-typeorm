@@ -25,11 +25,11 @@
     "node": ">= 8.9.0"
   },
   "dependencies": {
-    "typeorm-adapter": "^1.2.0"
+    "typeorm-adapter": "^1.4.2"
   },
   "peerDependencies": {
-    "casbin": "^5.0.0",
-    "@nestjs/common": "^7.0.0"
+    "casbin": "^5.14.0",
+    "@nestjs/common": "^8.4.3"
   },
   "devDependencies": {
     "@nestjs/common": "^7.6.11",
