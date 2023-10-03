@@ -1,5 +1,5 @@
 import { DynamicModule, Module, Provider, Type } from "@nestjs/common";
-import { Adapter, Enforcer, newEnforcer } from "casbin";
+import { Enforcer, newEnforcer } from "casbin";
 import TypeORMAdapter from "typeorm-adapter";
 import {
   CASBIN_ENFORCER,

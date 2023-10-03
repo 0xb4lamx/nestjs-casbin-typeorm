@@ -1,12 +1,12 @@
 import { Type } from '@nestjs/common';
 import { ModuleMetadata } from '@nestjs/common/interfaces';
-import { ConnectionOptions } from 'typeorm';
+import { DataSourceOptions } from 'typeorm';
 
 export type CasbinTypeormModuleOptions = {
     /**
      * typeorm connection option
      */
-    dbConnectionOptions: ConnectionOptions,
+    dbConnectionOptions: DataSourceOptions,
     /**
      * model file path
      */
